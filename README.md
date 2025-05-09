@@ -35,6 +35,42 @@ uvicorn backend.app.main:app --reload
 - Swagger UI: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
 
+## Frontend Setup
+
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+
+### Installation
+1. Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+### Running the Frontend
+1. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+2. Access the application:
+- Open http://localhost:3000 in your browser
+
+### Development Features
+- Hot reloading for instant feedback
+- TypeScript support for type safety
+- Tailwind CSS for styling
+- CopilotKit integration for AI-powered features
+
 ## API Endpoints
 
 ### Insights API

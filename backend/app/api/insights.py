@@ -1,9 +1,21 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import desc, func
+from sqlalchemy import desc, distinct, func
 from sqlalchemy.orm import Session
 
 from ..db.database import get_db
-from ..db.models import Actor, Category, Customer, Film, Payment, Rental, Store
+from ..db.models import (
+    Actor,
+    Address,
+    Category,
+    City,
+    Country,
+    Customer,
+    Film,
+    Inventory,
+    Payment,
+    Rental,
+    Store,
+)
 
 router = APIRouter()
 
@@ -182,6 +194,74 @@ async def get_actor_popularity(limit: int = 10, db: Session = Depends(get_db)):
                     "total_revenue": float(actor.total_revenue),
                 }
                 for actor in popular_actors
+            ],
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/insights/sales-overview")
+async def get_sales_overview(db: Session = Depends(get_db)):
+    try:
+        # Get monthly sales data for the past year
+        sales_data = (
+            db.query(
+                func.strftime("%Y-%m", Payment.payment_date).label("date"),
+                func.sum(Payment.amount).label("Sales"),
+                func.sum(Payment.amount * 0.7).label("Profit"),  # Assuming 70% profit margin
+                func.sum(Payment.amount * 0.3).label("Expenses"),  # Assuming 30% expenses
+                func.count(distinct(Rental.customer_id)).label("Customers"),
+            )
+            .join(Rental, Payment.rental_id == Rental.rental_id)
+            .group_by(func.strftime("%Y-%m", Payment.payment_date))
+            .order_by(func.strftime("%Y-%m", Payment.payment_date))
+            .limit(12)
+            .all()
+        )
+
+        return {
+            "status": "success",
+            "data": [
+                {
+                    "date": sale.date,
+                    "Sales": float(sale.Sales),
+                    "Profit": float(sale.Profit),
+                    "Expenses": float(sale.Expenses),
+                    "Customers": sale.Customers,
+                }
+                for sale in sales_data
+            ],
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/insights/regional-sales")
+async def get_regional_sales(db: Session = Depends(get_db)):
+    try:
+        # Get sales data by country
+        regional_data = (
+            db.query(
+                Country.country.label("region"),
+                func.sum(Payment.amount).label("sales"),
+                func.count(distinct(Rental.customer_id)).label("marketShare"),
+            )
+            .join(City, Country.country_id == City.country_id)
+            .join(Address, City.city_id == Address.city_id)
+            .join(Store, Address.address_id == Store.address_id)
+            .join(Inventory, Store.store_id == Inventory.store_id)
+            .join(Rental, Inventory.inventory_id == Rental.inventory_id)
+            .join(Payment, Rental.rental_id == Payment.rental_id)
+            .group_by(Country.country)
+            .order_by(func.sum(Payment.amount).desc())
+            .all()
+        )
+
+        return {
+            "status": "success",
+            "data": [
+                {"region": region.region, "sales": float(region.sales), "marketShare": region.marketShare}
+                for region in regional_data
             ],
         }
     except Exception as e:

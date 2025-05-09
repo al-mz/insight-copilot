@@ -3,7 +3,6 @@
 import { CopilotSidebar } from "@copilotkit/react-ui";
 import { Dashboard } from "../components/Dashboard";
 import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { CustomAssistantMessage } from "../components/AssistantMessage";
 import { prompt } from "../lib/prompt";
 import { useCopilotReadable } from "@copilotkit/react-core";
@@ -20,7 +19,6 @@ export default function Home() {
       <main className="w-full max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex-grow">
         <Dashboard />
       </main>
-      <Footer />
       <CopilotSidebar
         instructions={prompt}
         AssistantMessage={CustomAssistantMessage}

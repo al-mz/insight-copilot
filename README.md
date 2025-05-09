@@ -76,6 +76,7 @@ yarn dev
 ## Development
 
 ### Project Structure
+```
 InsightCopilot/
 ├── backend/
 │   ├── app/

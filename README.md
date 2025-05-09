@@ -88,7 +88,8 @@ InsightCopilot/
 │   │   │   └── insights.py  # Handles insights endpoints
 │   │   ├── db/
 │   │   │   ├── __init__.py
-│   │   │   └── database.py  # SQLite connection and schema setup
+│   │   │   ├── database.py  # SQLite connection and schema setup
+│   │   │   └── models.py    # SQLAlchemy ORM models for Sakila DB
 │   │   ├── agent/
 │   │   │   ├── __init__.py
 │   │   │   ├── configuration.py  # Agent configuration settings
@@ -101,34 +102,48 @@ InsightCopilot/
 │   │   └── utils/
 │   │       └── helpers.py   # Utility functions (data processing, query generation, etc.)
 │   ├── data/
-│   │   └── sample_data.db   # Sample SQLite database
+│   │   ├── sqlite-sakila.db   # Sample SQLite database
+│   │   └── README.txt        # Database documentation
 │   ├── tests/
 │   │   ├── test_api.py      # API endpoint tests
 │   │   └── test_langgraph.py # Agent logic tests
-│   ├── uv.lock               # UV lock file for dependencies
-│   └── pyproject.toml        # UV configuration and dependencies
+│   ├── requirements.txt     # Project dependencies
+│   └── pyproject.toml       # Python project configuration
 │
 ├── frontend/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── copilotkit/
+│   │   │       └── route.ts  # API route for CopilotKit
+│   │   ├── globals.css      # Global styles including Tailwind
+│   │   ├── layout.tsx       # Root layout with CopilotKit provider
+│   │   └── page.tsx         # Entry point for the application
+│   ├── components/
+│   │   ├── AssistantMessage.tsx  # Custom assistant message component
+│   │   ├── Dashboard.tsx         # Main dashboard with visualizations
+│   │   ├── Header.tsx            # App header component
+│   │   ├── generative-ui/        # UI components for generative features
+│   │   └── ui/                   # Reusable UI components
+│   │       ├── area-chart.tsx    # Area chart visualization
+│   │       ├── bar-chart.tsx     # Bar chart visualization
+│   │       ├── card.tsx          # Card container component
+│   │       ├── pie-chart.tsx     # Pie/donut chart visualization
+│   │       └── ...               # Other UI components
+│   ├── lib/
+│   │   ├── prompt.ts         # Prompts for CopilotKit
+│   │   └── utils.ts          # Utility functions
 │   ├── public/
 │   │   └── favicon.ico
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Dashboard.jsx    # Real-time dashboard
-│   │   │   ├── QueryInput.jsx   # Query input and response component
-│   │   │   └── CopilotUI.jsx    # Copilot interface for interacting with LangGraph
-│   │   ├── pages/
-│   │   │   ├── index.jsx        # Entry point for the Copilot app
-│   │   │   └── api/
-│   │   │       └── query.js     # API route to communicate with FastAPI
-│   │   ├── styles/
-│   │   │   └── globals.css
-│   │   └── utils/
-│   │       └── apiClient.js     # Axios setup for API requests
-│   └── package.json             # Frontend dependencies
+│   ├── eslint.config.mjs     # ESLint configuration
+│   ├── next.config.mjs       # Next.js configuration
+│   ├── package.json          # Frontend dependencies
+│   ├── postcss.config.mjs    # PostCSS configuration for Tailwind
+│   ├── tailwind.config.ts    # Tailwind CSS configuration
+│   └── tsconfig.json         # TypeScript configuration
 │
-├── .env.example                # Environment variable template
-├── .gitignore                  # Ignored files
-├── README.md                   # Project overview and setup instructions
-├── docker-compose.yml          # Docker configuration for backend and frontend
-├── LICENSE                     # Open-source license
-└── Makefile                    # Common project commands (setup, run, test)
+├── .env.example             # Environment variable template
+├── .gitignore               # Ignored files
+├── README.md                # Project overview and setup instructions
+├── docker-compose.yml       # Docker configuration for backend and frontend
+├── LICENSE                  # Open-source license
+└── Makefile                 # Common project commands (setup, run, test)

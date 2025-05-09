@@ -16,7 +16,7 @@ A modular, open-source Co-Pilot app built with LangGraph and CopilotKit. Insight
 
 ### Backend
 - **FastAPI**: High-performance API framework
-- **LangGraph**: For building robust AI agent workflows
+- **LangGraph**: For building AI agent workflows
 - **SQLAlchemy**: ORM for database interactions
 - **SQLite**: Local database storage
 

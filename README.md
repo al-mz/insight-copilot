@@ -73,21 +73,6 @@ yarn dev
 - Tailwind CSS for styling
 - CopilotKit integration for AI-powered features
 
-## API Endpoints
-
-### Insights API
-The backend provides several endpoints for extracting insights from the Sakila database:
-
-- `GET /api/v1/insights/top-films`: Get top performing films by rental count
-- `GET /api/v1/insights/category-performance`: Get performance metrics by film category
-- `GET /api/v1/insights/customer-activity`: Get most active customers
-- `GET /api/v1/insights/store-performance`: Get store performance metrics
-- `GET /api/v1/insights/actor-popularity`: Get most popular actors
-
-### Query Parameters
-- `limit`: Number of results to return (default: 10)
-  Example: `/api/v1/insights/top-films?limit=5`
-
 ## Development
 
 ### Project Structure

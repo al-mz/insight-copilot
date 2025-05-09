@@ -5,10 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field, fields
 from typing import Annotated
 
+from app.agent import prompts
 from langchain_core.runnables import ensure_config
 from langgraph.config import get_config
-
-from backend.power_sim_agent import prompts
 
 
 @dataclass(kw_only=True)

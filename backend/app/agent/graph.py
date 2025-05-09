@@ -5,16 +5,17 @@ Works with a chat model with tool calling support.
 
 from typing import Dict, List, Literal, cast
 
+from app.agent.configuration import Configuration
+from app.agent.state import AgentState, InputState, SQLAgentState
+from app.agent.tools import TOOLS
+from app.agent.utils import load_chat_model
+from dotenv import load_dotenv
 from langchain_core.messages import AIMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import StateGraph
 from langgraph.prebuilt import ToolNode
 
-from backend.power_sim_agent.configuration import Configuration
-from backend.power_sim_agent.state import AgentState, InputState
-from backend.power_sim_agent.tools import TOOLS
-from backend.power_sim_agent.utils import load_chat_model
-
+load_dotenv()
 
 # Define the function that calls the model
 async def call_model(state: AgentState) -> Dict[str, List[AIMessage]]:
@@ -70,24 +71,21 @@ builder.add_node("tools", ToolNode(TOOLS))
 builder.add_edge("__start__", "call_model")
 
 
-def route_model_output(state: AgentState) -> Literal["__end__", "tools"]:
-    """Determine the next node based on the model's output.
-
-    This function checks if the model's last message contains tool calls.
-
-    Args:
-        state (State): The current state of the conversation.
-
-    Returns:
-        str: The name of the next node to call ("__end__" or "tools").
-    """
+def route_model_output(state: SQLAgentState) -> Literal["__end__", "tools"]:
+    """Determine the next node based on the model's output."""
     last_message = state.messages[-1]
     if not isinstance(last_message, AIMessage):
         raise ValueError(f"Expected AIMessage in output edges, but got {type(last_message).__name__}")
+
     # If there is no tool call, then we finish
     if not last_message.tool_calls:
         return "__end__"
-    # Otherwise we execute the requested actions
+
+    # If we've exceeded max attempts, end the conversation
+    if state.query_attempts >= 3:
+        return "__end__"
+
+    # Otherwise execute the requested actions
     return "tools"
 
 
@@ -116,8 +114,7 @@ if __name__ == "__main__":
         # Define the input using proper message format
         input_data = {
             "messages": [
-                # HumanMessage(content="What are the available signal types in the database?")
-                HumanMessage(content="Can you plot V_MV for case 04_LVRT_Lead_Preferred_01 from 5 to 10 seconds?"),
+                HumanMessage(content="What is the total revenue?"),
             ]
         }
 

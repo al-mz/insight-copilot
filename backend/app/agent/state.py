@@ -1,6 +1,6 @@
 # Define agent state
 from dataclasses import dataclass, field
-from typing import Annotated, Any, Dict, List, Sequence
+from typing import Annotated, Dict, List, Optional, Sequence
 
 from copilotkit import CopilotKitState  # noqa: F401
 from langchain_core.messages import AnyMessage
@@ -40,7 +40,6 @@ class InputState:
 
 @dataclass
 class AgentState(InputState):
-    data: Annotated[List[Dict[str, Any]], merge_lists] = field(default_factory=list)
     remaining_steps: RemainingSteps = 25
     is_last_step: IsLastStep = field(default=False)
 
@@ -58,3 +57,12 @@ class AgentState(InputState):
     def get(self, key, default=None):
         """Provide dictionary-like get method with default support."""
         return getattr(self, key, default)
+
+
+@dataclass
+class SQLAgentState(AgentState):
+    """Extended state for SQL agent with query tracking."""
+
+    last_query: Optional[str] = None
+    query_attempts: int = 0
+    schema: Optional[Dict[str, List[str]]] = None

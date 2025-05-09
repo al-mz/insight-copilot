@@ -5,6 +5,27 @@ A modular, open-source Co-Pilot app built with LangGraph and CopilotKit. Insight
 
 ![insight-copilot](https://github.com/user-attachments/assets/6ed3e665-01d7-49b0-addc-5ae7abdc3ccf)
 
+## Key Features
+
+- **Natural Language Data Querying**: Ask questions about your data in plain English
+- **Intelligent Assistant**: Powered by LangGraph for context-aware responses
+- **Low-Code Integration**: Connect to your own datasets with minimal configuration
+- **Extensible Architecture**: Add new visualization types and query capabilities
+
+## Technology Stack
+
+### Backend
+- **FastAPI**: High-performance API framework
+- **LangGraph**: For building robust AI agent workflows
+- **SQLAlchemy**: ORM for database interactions
+- **SQLite**: Local database storage
+
+### Frontend
+- **Next.js**: React framework for production
+- **CopilotKit**: UI components for AI assistants
+- **Tailwind CSS**: Utility-first CSS framework
+- **Recharts**: Flexible charting library
+
 ## Backend Setup
 
 ### Prerequisites
@@ -72,6 +93,7 @@ yarn dev
 - TypeScript support for type safety
 - Tailwind CSS for styling
 - CopilotKit integration for AI-powered features
+
 
 ## Development
 

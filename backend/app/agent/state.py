@@ -42,6 +42,7 @@ class InputState:
 class AgentState(InputState):
     remaining_steps: RemainingSteps = 25
     is_last_step: IsLastStep = field(default=False)
+    progress: Optional[str] = None
 
     def items(self):
         """Make AgentState behave like a dictionary for CopilotKit compatibility.

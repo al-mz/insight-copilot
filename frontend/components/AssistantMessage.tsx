@@ -5,6 +5,7 @@ import { useCoAgent } from "@copilotkit/react-core";
 
 export const CustomAssistantMessage = (props: AssistantMessageProps) => {
   const { message, isLoading, subComponent } = props;
+  const { state: agent } = useCoAgent({ name: "insight_copilot_agent" });
 
   return (
     <div className="pb-4">
@@ -15,7 +16,7 @@ export const CustomAssistantMessage = (props: AssistantMessageProps) => {
             {isLoading && (
                 <div className="flex items-center gap-2 text-xs text-blue-500">
                 <Loader className="h-3 w-3 animate-spin" />
-                <span>Thinking...</span>
+                <span>{agent?.progress || "Thinking..."}</span>
                 </div>
             )}
             </div>

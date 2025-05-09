@@ -1,6 +1,8 @@
 import { AssistantMessageProps } from "@copilotkit/react-ui";
 import { Markdown } from "@copilotkit/react-ui";
 import { Loader } from "lucide-react";
+import { useCoAgent } from "@copilotkit/react-core";
+
 export const CustomAssistantMessage = (props: AssistantMessageProps) => {
   const { message, isLoading, subComponent } = props;
 

@@ -4,6 +4,8 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List
 
 import pandas as pd
+from copilotkit.langgraph import copilotkit_emit_state
+from langchain_core.runnables.config import RunnableConfig
 from langchain_core.tools import tool
 from langchain_core.tools.base import InjectedToolCallId
 from langgraph.prebuilt import InjectedState
@@ -59,13 +61,15 @@ async def get_schema(
     return json.dumps(schema, indent=2)
 
 
-@tool(description="Run a query on the database", return_direct=False)
+@tool(description="Run a query on the database", return_direct=True)
 async def run_query(
     tool_call_id: Annotated[str, InjectedToolCallId],
     state: Annotated[Any, InjectedState],
+    config: RunnableConfig,
     query: str,
 ) -> str:
     """Run a SQL query on the database with retry logic."""
+    await copilotkit_emit_state(config, {"progress": "Running query..."})
     try:
         result = db.execute_query(query)
         return result.to_json(orient="records")

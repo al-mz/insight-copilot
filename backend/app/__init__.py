@@ -1,0 +1,3 @@
+"""
+InsightCopilot backend application package.
+"""

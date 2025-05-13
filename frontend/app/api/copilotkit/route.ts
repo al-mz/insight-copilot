@@ -6,8 +6,10 @@ import {
 } from "@copilotkit/runtime";
 import OpenAI from "openai";
 
-const openai = new OpenAI();
-const serviceAdapter = new OpenAIAdapter({ openai } as any);
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+const serviceAdapter = new OpenAIAdapter({ openai });
 
 const runtime = new CopilotRuntime({
   remoteEndpoints: [

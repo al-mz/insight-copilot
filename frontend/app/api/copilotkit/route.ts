@@ -14,7 +14,7 @@ const serviceAdapter = new OpenAIAdapter({ openai });
 const runtime = new CopilotRuntime({
   remoteEndpoints: [
     {
-      url: "http://backend:8000/copilotkit",
+      url: `${process.env.SERVER_API_URL}/copilotkit`,
     },
   ],
 });

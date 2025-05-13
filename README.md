@@ -103,7 +103,15 @@ uvicorn backend.app.main:app --reload
 cd frontend
 ```
 
-2. Install dependencies:
+2. Create a `.env.local` file with the following environment variables:
+```bash
+# For local development
+NEXT_PUBLIC_API_URL=http://localhost:8000
+SERVER_API_URL=http://localhost:8000
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+3. Install dependencies:
 ```bash
 pnpm install
 ```
@@ -116,6 +124,20 @@ pnpm run dev
 
 2. Access the application:
 - Open http://localhost:3000 in your browser
+
+### Environment Variables
+
+#### Docker Setup
+The following environment variables are automatically set in the Docker Compose configuration:
+- `NEXT_PUBLIC_API_URL=http://localhost:8000` - Used by the frontend for client-side API calls
+- `SERVER_API_URL=http://backend:8000` - Used by the server-side CopilotKit runtime
+- `OPENAI_API_KEY` - Your OpenAI API key (set in .env file)
+
+#### Local Setup
+For local development, you need to set these variables in your `.env.local` file:
+- `NEXT_PUBLIC_API_URL=http://localhost:8000` - Used by the frontend for client-side API calls
+- `SERVER_API_URL=http://localhost:8000` - Used by the server-side CopilotKit runtime
+- `OPENAI_API_KEY` - Your OpenAI API key
 
 ### Development Features
 - Hot reloading for instant feedback

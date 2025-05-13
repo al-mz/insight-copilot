@@ -20,30 +20,19 @@ init:
 	pre-commit install
 
 build:
-	docker compose -f local.yml build
-	docker compose -f local.yml up
+	docker compose build
+	docker compose up
 
 up:
-	docker compose -f local.yml up
+	docker compose up
 
 down:
-	docker compose -f local.yml down
-
-up_overwrite:
-	docker compose -f local.yml -f docker compose.override.yml up
+	docker compose down
 
 purge:
-	docker compose -f local.yml down --volumes --remove-orphans
+	docker compose down --volumes --remove-orphans
 
 rebuild: purge build
 
-restore_backup:
-	source ./.envs/.local/mysql.env && \
-	cat ./backups/backup.sql | docker exec -i prestashop_local_mysql /usr/bin/mysql -u root --password=$${MYSQL_ROOT_PASSWORD} $${MYSQL_DATABASE}
-
 precommit:
 	pre-commit run --all-files
-
-connect_to_db:
-	source ./.envs/.local/mysql.env && \
-	docker exec -it prestashop_local_mysql mysql -u root --password=$${MYSQL_ROOT_PASSWORD} $${MYSQL_DATABASE}

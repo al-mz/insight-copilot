@@ -26,14 +26,47 @@ A modular, open-source Co-Pilot app built with LangGraph and CopilotKit. Insight
 - **Tailwind CSS**: Utility-first CSS framework
 - **Recharts**: Flexible charting library
 
-## Backend Setup
+## Installation Options
 
-### Prerequisites
+### Option 1: Docker Installation (Recommended)
+
+#### Prerequisites
+- Docker
+- Docker Compose
+
+#### Setup
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/insight-copilot.git
+cd insight-copilot
+```
+
+2. Create a `.env` file in the root directory:
+```bash
+cp .env.example .env
+# Edit .env and add your OpenAI API key
+```
+
+3. Build and start the containers:
+```bash
+docker-compose up --build
+```
+
+4. Access the application:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+- API Documentation: http://localhost:8000/docs
+
+### Option 2: Local Installation
+
+#### Backend Setup
+
+##### Prerequisites
 - Python 3.8+
 - SQLite3
 - UV package manager
 
-### Installation
+##### Installation
 1. Create and activate a virtual environment:
 ```bash
 python -m venv .venv
@@ -45,10 +78,10 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 uv pip install -r backend/requirements.txt
 ```
 
-### Database Setup
+##### Database Setup
 The backend uses SQLite with the Sakila sample database. The database file will be automatically created in `backend/data/sqlite-sakila.db` when you first run the application.
 
-### Running the Backend
+##### Running the Backend
 1. Start the FastAPI server:
 ```bash
 uvicorn backend.app.main:app --reload
@@ -58,42 +91,59 @@ uvicorn backend.app.main:app --reload
 - Swagger UI: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
 
-## Frontend Setup
+#### Frontend Setup
 
-### Prerequisites
+##### Prerequisites
 - Node.js 18+
-- npm or yarn
+- pnpm
 
-### Installation
+##### Installation
 1. Navigate to the frontend directory:
 ```bash
 cd frontend
 ```
 
-2. Install dependencies:
+2. Create a `.env.local` file with the following environment variables:
 ```bash
-npm install
-# or
-yarn install
+# For local development
+NEXT_PUBLIC_API_URL=http://localhost:8000
+SERVER_API_URL=http://localhost:8000
+OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-### Running the Frontend
+3. Install dependencies:
+```bash
+pnpm install
+```
+
+##### Running the Frontend
 1. Start the development server:
 ```bash
-npm run dev
-# or
-yarn dev
+pnpm run dev
 ```
 
 2. Access the application:
 - Open http://localhost:3000 in your browser
+
+### Environment Variables
+
+#### Docker Setup
+The following environment variables are automatically set in the Docker Compose configuration:
+- `NEXT_PUBLIC_API_URL=http://localhost:8000` - Used by the frontend for client-side API calls
+- `SERVER_API_URL=http://backend:8000` - Used by the server-side CopilotKit runtime
+- `OPENAI_API_KEY` - Your OpenAI API key (set in .env file)
+
+#### Local Setup
+For local development, you need to set these variables in your `.env.local` file:
+- `NEXT_PUBLIC_API_URL=http://localhost:8000` - Used by the frontend for client-side API calls
+- `SERVER_API_URL=http://localhost:8000` - Used by the server-side CopilotKit runtime
+- `OPENAI_API_KEY` - Your OpenAI API key
 
 ### Development Features
 - Hot reloading for instant feedback
 - TypeScript support for type safety
 - Tailwind CSS for styling
 - CopilotKit integration for AI-powered features
-
 
 ## Development
 

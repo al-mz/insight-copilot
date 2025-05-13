@@ -66,7 +66,7 @@ export function Dashboard() {
     const fetchData = async () => {
       try {
         // Fetch sales overview data
-        const salesResponse = await fetch('http://localhost:8000/api/v1/insights/sales-overview');
+        const salesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/insights/sales-overview`);
         const salesResult = await salesResponse.json();
         if (salesResult.status === 'success') {
           setSalesData(salesResult.data);
@@ -88,28 +88,28 @@ export function Dashboard() {
         }
 
         // Fetch top films data
-        const filmsResponse = await fetch('http://localhost:8000/api/v1/insights/top-films');
+        const filmsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/insights/top-films`);
         const filmsResult = await filmsResponse.json();
         if (filmsResult.status === 'success') {
           setProductData(filmsResult.data);
         }
 
         // Fetch category performance data
-        const categoryResponse = await fetch('http://localhost:8000/api/v1/insights/category-performance');
+        const categoryResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/insights/category-performance`);
         const categoryResult = await categoryResponse.json();
         if (categoryResult.status === 'success') {
           setCategoryData(categoryResult.data);
         }
 
         // Fetch regional sales data
-        const regionalResponse = await fetch('http://localhost:8000/api/v1/insights/regional-sales');
+        const regionalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/insights/regional-sales`);
         const regionalResult = await regionalResponse.json();
         if (regionalResult.status === 'success') {
           setRegionalData(regionalResult.data);
         }
 
         // Fetch customer activity data
-        const customerResponse = await fetch('http://localhost:8000/api/v1/insights/customer-activity');
+        const customerResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/insights/customer-activity`);
         const customerResult = await customerResponse.json();
         if (customerResult.status === 'success') {
           setCustomerData(customerResult.data);

@@ -25,7 +25,6 @@ services:
       - ./frontend:/app
       - /app/node_modules
       - /app/.next
-      - pnpm-store:/pnpm
     environment:
       - NEXT_PUBLIC_API_URL=http://backend:8000
       - OPENAI_API_KEY=${OPENAI_API_KEY:-dummy_key_for_build}
@@ -39,6 +38,3 @@ services:
 networks:
   insight-network:
     driver: bridge
-
-volumes:
-  pnpm-store:

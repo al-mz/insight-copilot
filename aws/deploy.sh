@@ -27,15 +27,16 @@ aws ecr describe-repositories --repository-names $ECR_REPOSITORY_FRONTEND || aws
 
 # Build and push backend image
 echo "Building and pushing backend image..."
-docker build -t $ECR_REPOSITORY_BACKEND ./backend
-docker tag $ECR_REPOSITORY_BACKEND:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_BACKEND:latest
-docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_BACKEND:latest
+docker buildx create --use
+docker buildx build --platform linux/amd64,linux/arm64 \
+    -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_BACKEND:latest \
+    ./backend --push
 
 # Build and push frontend image
 echo "Building and pushing frontend image..."
-docker build -t $ECR_REPOSITORY_FRONTEND ./frontend
-docker tag $ECR_REPOSITORY_FRONTEND:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_FRONTEND:latest
-docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_FRONTEND:latest
+docker buildx build --platform linux/amd64,linux/arm64 \
+    -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_FRONTEND:latest \
+    ./frontend --push
 
 # Update task definition
 echo "Updating task definition..."

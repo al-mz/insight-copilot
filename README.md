@@ -219,4 +219,3 @@ InsightCopilot/
 ├── docker-compose.yml       # Docker configuration for backend and frontend
 ├── LICENSE                  # Open-source license
 └── Makefile                 # Common project commands (setup, run, test)
-hi

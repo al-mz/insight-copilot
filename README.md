@@ -46,12 +46,6 @@ graph TB
     style Data fill:#ffd,stroke:#333,stroke-width:2px
 ```
 
-The architecture consists of four main layers:
-1. **Frontend Layer**: Next.js and React application with CopilotKit integration
-2. **Backend Layer**: FastAPI server with LangGraph agent and SQLite database
-3. **Key Components**: Core system components and their interactions
-4. **Data Flow**: End-to-end data flow from user input to visualization
-
 ## Key Features
 
 - **Natural Language Data Querying**: Ask questions about your data in plain English

@@ -5,6 +5,53 @@ A modular, open-source Co-Pilot app built with LangGraph and CopilotKit. Insight
 
 ![insight-copilot](https://github.com/user-attachments/assets/6ed3e665-01d7-49b0-addc-5ae7abdc3ccf)
 
+## System Architecture
+
+The InsightCopilot system is built with a modern, modular architecture that separates concerns between frontend and backend components while maintaining seamless integration through well-defined APIs.
+
+```mermaid
+graph TB
+    subgraph Frontend["Frontend (Next.js + React)"]
+        UI[UI Components]
+        CK[CopilotKit Integration]
+        API[API Routes]
+    end
+
+    subgraph Backend["Backend (FastAPI)"]
+        AG[LangGraph Agent]
+        DB[(SQLite Database)]
+        API_R[FastAPI Routes]
+    end
+
+    subgraph Components["Key Components"]
+        UI --> |User Interaction| CK
+        CK --> |API Calls| API
+        API --> |HTTP| API_R
+        API_R --> |Query| AG
+        AG --> |Read/Write| DB
+        AG --> |Tool Calls| API_R
+    end
+
+    subgraph Data["Data Flow"]
+        direction LR
+        User[User] --> |Natural Language| UI
+        UI --> |Visualization| User
+        AG --> |Insights| API_R
+        API_R --> |JSON| UI
+    end
+
+    style Frontend fill:#f9f,stroke:#333,stroke-width:2px
+    style Backend fill:#bbf,stroke:#333,stroke-width:2px
+    style Components fill:#dfd,stroke:#333,stroke-width:2px
+    style Data fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+The architecture consists of four main layers:
+1. **Frontend Layer**: Next.js and React application with CopilotKit integration
+2. **Backend Layer**: FastAPI server with LangGraph agent and SQLite database
+3. **Key Components**: Core system components and their interactions
+4. **Data Flow**: End-to-end data flow from user input to visualization
+
 ## Key Features
 
 - **Natural Language Data Querying**: Ask questions about your data in plain English

@@ -103,7 +103,7 @@ builder.add_edge("tools", "call_model")
 
 # Compile the builder into an executable graph
 memory = MemorySaver()
-graph = builder.compile(name="powersim_agent", checkpointer=memory)
+graph = builder.compile(name="powersim_agent")
 
 if __name__ == "__main__":
     import asyncio

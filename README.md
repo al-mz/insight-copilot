@@ -84,7 +84,7 @@ cd insight-copilot
 
 2. Create a `.env` file in the root directory:
 ```bash
-cp .env.example .env
+cp .env.sample .env
 # Edit .env and add your OpenAI API key
 ```
 

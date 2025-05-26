@@ -4,11 +4,11 @@
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "1024",
   "memory": "2048",
-  "executionRoleArn": "arn:aws:iam::183631317094:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "name": "backend",
-      "image": "183631317094.dkr.ecr.ca-central-1.amazonaws.com/insight-copilot-backend:latest",
+      "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/insight-copilot-backend:latest",
       "essential": true,
       "portMappings": [
         {
@@ -26,14 +26,14 @@
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "/ecs/insight-copilot",
-          "awslogs-region": "ca-central-1",
+          "awslogs-region": "<AWS_REGION>",
           "awslogs-stream-prefix": "backend"
         }
       }
     },
     {
       "name": "frontend",
-      "image": "183631317094.dkr.ecr.ca-central-1.amazonaws.com/insight-copilot-frontend:latest",
+      "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/insight-copilot-frontend:latest",
       "essential": true,
       "portMappings": [
         {
@@ -59,7 +59,7 @@
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "/ecs/insight-copilot",
-          "awslogs-region": "ca-central-1",
+          "awslogs-region": "<AWS_REGION>",
           "awslogs-stream-prefix": "frontend"
         }
       }

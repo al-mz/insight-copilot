@@ -78,7 +78,7 @@ graph TB
 #### Setup
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/insight-copilot.git
+git clone https://github.com/al-mz/insight-copilot.git
 cd insight-copilot
 ```
 

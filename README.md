@@ -1,7 +1,7 @@
 # insight-copilot
 
 ## Introduction
-A modular, open-source Co-Pilot app built with LangGraph and CopilotKit. InsightCopilot enables natural language querying and real-time data visualization for any structured dataset.
+A modular, open-source Co-Pilot app built with LangGraph and CopilotKit. InsightCopilot enables natural language querying and real-time data visualization for structured dataset.
 
 ![insight-copilot](https://github.com/user-attachments/assets/6ed3e665-01d7-49b0-addc-5ae7abdc3ccf)
 
